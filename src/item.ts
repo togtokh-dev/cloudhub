@@ -26,7 +26,12 @@ const GET_ALL_ITEMS = async (): Promise<{
         retryFunction: getToken,
         name: "GET_ALL_ITEMS",
         timeout: 20000,
-        logger(data) {},
+        logger(data) {
+          if (config.logger) {
+            console.log(data);
+            console.log(JSON.stringify(data));
+          }
+        },
       }
     );
     return res;
@@ -34,13 +39,12 @@ const GET_ALL_ITEMS = async (): Promise<{
     return { success: false, message: error.message };
   }
 };
-
 /**
  * Get item info by ID.
  */
 const GET_ITEM_INFO = async (
   id: string
-): Promise<{ success: boolean; message: string; data?: any }> => {
+): Promise<{ success: boolean; message: string; data?: ItemT }> => {
   try {
     const res = await axiosMasterMain(
       {
@@ -57,7 +61,12 @@ const GET_ITEM_INFO = async (
         retryFunction: getToken,
         name: "GET_ITEM_INFO",
         timeout: 20000,
-        logger(data) {},
+        logger(data) {
+          if (config.logger) {
+            console.log(data);
+            console.log(JSON.stringify(data));
+          }
+        },
       }
     );
     return res;
@@ -71,7 +80,7 @@ const GET_ITEM_INFO = async (
  */
 const GET_ITEM_GROUP_INFO = async (
   id: string
-): Promise<{ success: boolean; message: string; data?: any }> => {
+): Promise<{ success: boolean; message: string; data?: ItemT[] }> => {
   try {
     const res = await axiosMasterMain(
       {
@@ -88,7 +97,12 @@ const GET_ITEM_GROUP_INFO = async (
         retryFunction: getToken,
         name: "GET_ITEM_GROUP_INFO",
         timeout: 20000,
-        logger(data) {},
+        logger(data) {
+          if (config.logger) {
+            console.log(data);
+            console.log(JSON.stringify(data));
+          }
+        },
       }
     );
     return res;
@@ -96,3 +110,4 @@ const GET_ITEM_GROUP_INFO = async (
     return { success: false, message: error.message };
   }
 };
+export default { GET_ALL_ITEMS, GET_ITEM_INFO, GET_ITEM_GROUP_INFO };

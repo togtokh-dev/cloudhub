@@ -4,10 +4,28 @@ import { axiosMasterMain } from "axios-master";
 /**
  * Verify an order by ID.
  */
-const VERIFY_ORDER = async (
+export const VERIFY_ORDER = async (
   id: string,
-  chargeAccount: string
-): Promise<{ success: boolean; message: string }> => {
+  data: {
+    charge_account: string;
+    charge_password?: string;
+    charge_game?: string;
+    charge_region?: string;
+    charge_server?: string;
+    charge_type?: string;
+  }
+): Promise<{
+  success: boolean;
+  message: string;
+  data?: {
+    country: string;
+    paymentChannel: string;
+    productName: string;
+    username: string;
+    chargeAccount: string;
+    usernameImage: string;
+  };
+}> => {
   try {
     const res = await axiosMasterMain(
       {
@@ -17,9 +35,7 @@ const VERIFY_ORDER = async (
           Authorization: `Bearer ${config.token}`,
           "Content-Type": "application/json",
         },
-        data: {
-          charge_account: chargeAccount,
-        },
+        data: data,
       },
       {
         shouldRetry: true,
@@ -27,11 +43,20 @@ const VERIFY_ORDER = async (
         retryFunction: getToken,
         name: "VERIFY_ORDER",
         timeout: 20000,
-        logger(data) {},
+        logger(data) {
+          if (config.logger) {
+            console.log(data);
+            console.log(JSON.stringify(data));
+          }
+        },
       }
     );
     return res;
   } catch (error) {
     return { success: false, message: error.message };
   }
+};
+
+export default {
+  VERIFY_ORDER,
 };

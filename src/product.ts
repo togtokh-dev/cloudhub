@@ -1,12 +1,12 @@
 import CloudHub, { config } from ".";
 import { getToken } from "./auth";
 import { axiosMasterMain } from "axios-master";
-import { ProductT } from "./type";
+import { ItemT, ProductAddItemT, ProductT } from "./type";
 
 /**
  * Get all products.
  */
-const GET_ALL_PRODUCTS = async (): Promise<{
+export const GET_ALL_PRODUCTS = async (): Promise<{
   success: boolean;
   message: string;
   data?: ProductT[];
@@ -27,7 +27,12 @@ const GET_ALL_PRODUCTS = async (): Promise<{
         retryFunction: getToken,
         name: "GET_ALL_PRODUCTS",
         timeout: 20000,
-        logger(data) {},
+        logger(data) {
+          if (config.logger) {
+            console.log(data);
+            console.log(JSON.stringify(data));
+          }
+        },
       }
     );
     return res;
@@ -39,9 +44,9 @@ const GET_ALL_PRODUCTS = async (): Promise<{
 /**
  * Get product info by ID.
  */
-const GET_PRODUCT_INFO = async (
+export const GET_PRODUCT_INFO = async (
   id: string
-): Promise<{ success: boolean; message: string; data?: any }> => {
+): Promise<{ success: boolean; message: string; data?: ProductT }> => {
   try {
     const res = await axiosMasterMain(
       {
@@ -58,7 +63,12 @@ const GET_PRODUCT_INFO = async (
         retryFunction: getToken,
         name: "GET_PRODUCT_INFO",
         timeout: 20000,
-        logger(data) {},
+        logger(data) {
+          if (config.logger) {
+            console.log(data);
+            console.log(JSON.stringify(data));
+          }
+        },
       }
     );
     return res;
@@ -70,9 +80,10 @@ const GET_PRODUCT_INFO = async (
 /**
  * Get product info with additional items.
  */
-const GET_PRODUCT_INFO_ADD_ITEM = async (
+
+export const GET_PRODUCT_INFO_ADD_ITEM = async (
   id: string
-): Promise<{ success: boolean; message: string; data?: any }> => {
+): Promise<{ success: boolean; message: string; data?: ProductAddItemT }> => {
   try {
     const res = await axiosMasterMain(
       {
@@ -89,11 +100,22 @@ const GET_PRODUCT_INFO_ADD_ITEM = async (
         retryFunction: getToken,
         name: "GET_PRODUCT_INFO_ADD_ITEM",
         timeout: 20000,
-        logger(data) {},
+        logger(data) {
+          if (config.logger) {
+            console.log(data);
+            console.log(JSON.stringify(data));
+          }
+        },
       }
     );
     return res;
   } catch (error) {
     return { success: false, message: error.message };
   }
+};
+
+export default {
+  GET_ALL_PRODUCTS,
+  GET_PRODUCT_INFO,
+  GET_PRODUCT_INFO_ADD_ITEM,
 };

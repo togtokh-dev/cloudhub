@@ -1,5 +1,7 @@
 import axios from "axios";
 import CloudHub, { config } from "./";
+
+// Define the structure of the authentication response
 type AuthResT = {
   success: boolean;
   message: string;
@@ -7,6 +9,7 @@ type AuthResT = {
   data: any;
 };
 
+// Function to perform login and retrieve an authentication token
 const LOGIN = async (body: {
   email: string;
   password: string;
@@ -15,6 +18,7 @@ const LOGIN = async (body: {
   message: string;
 }> => {
   try {
+    // POST request to authenticate the user
     const res = await axios.post(
       `${config.host}/topup/auth/v1/merchant/login`,
       body,
@@ -25,20 +29,16 @@ const LOGIN = async (body: {
       }
     );
     const auth: AuthResT = res.data;
+
+    // Handle success or failure
     if (auth.success) {
       config.auth.email = body.email;
       config.auth.password = body.password;
       console.log("SUCCESS");
       config.token = auth.token;
-      return {
-        success: true,
-        message: "success",
-      };
+      return { success: true, message: "success" };
     } else {
-      return {
-        success: false,
-        message: auth.message,
-      };
+      return { success: false, message: auth.message };
     }
   } catch (error) {
     console.log("FAILED", error?.response?.data);
@@ -48,6 +48,8 @@ const LOGIN = async (body: {
     };
   }
 };
+
+// Retrieve a new authentication token using saved credentials
 export const getToken = async (): Promise<string> => {
   try {
     const res = await axios.post(
@@ -60,6 +62,7 @@ export const getToken = async (): Promise<string> => {
       }
     );
     const auth: AuthResT = res.data;
+
     if (auth.success) {
       config.token = auth.token;
       return auth.token;
@@ -72,4 +75,5 @@ export const getToken = async (): Promise<string> => {
     return "";
   }
 };
+
 export default { LOGIN };

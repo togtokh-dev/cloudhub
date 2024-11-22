@@ -38,3 +38,6 @@ export type ProductT = {
   name: string;
   active: boolean;
 };
+export interface ProductAddItemT extends ProductT {
+  items: ItemT[];
+}
