@@ -1,5 +1,5 @@
 {
-  "name": "cloudhub",
+  "name": "cloudhub.mn",
   "version": "0.1.0",
   "description": "cloudhub topup service",
   "main": "dist/index.js",
