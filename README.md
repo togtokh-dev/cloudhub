@@ -7,7 +7,7 @@ CloudHub is an API wrapper for managing authentication, products, and orders sea
 Install the package using npm or yarn:
 
 ```bash
-npm install cloudhub
+npm install cloudhub.mn
 ```
 
 ## Usage
