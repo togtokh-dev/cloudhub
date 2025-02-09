@@ -24,8 +24,19 @@ export type ItemT = {
 export type ProductT = {
   id: string;
   name: string;
+  group: string;
+  region: string[];
   active: boolean;
   type: "Direct charging" | "Card code";
+};
+export type GroupT = {
+  id: string;
+  name: string;
+};
+export type RegionT = {
+  id: string;
+  name: string;
+  image: string;
 };
 export interface ProductAddItemT extends ProductT {
   items: ItemT[];

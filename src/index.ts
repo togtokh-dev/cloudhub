@@ -2,6 +2,8 @@ import auth from "./auth";
 import product from "./product";
 import item from "./item";
 import order from "./order";
+import group from "./group";
+import region from "./region";
 // Configuration object for CloudHub with initial default values
 export const config: {
   token: string;
@@ -42,6 +44,8 @@ const CloudHub = {
   setLogger,
   item,
   order,
+  group,
+  region,
 };
 
 export default CloudHub;
