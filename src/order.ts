@@ -20,7 +20,7 @@ export const VERIFY_ORDER = async (
     charge_region?: string;
     charge_server?: string;
     charge_type?: string;
-  }
+  },
 ): Promise<{
   success: boolean;
   message: string;
@@ -56,7 +56,7 @@ export const VERIFY_ORDER = async (
             console.log(JSON.stringify(data));
           }
         },
-      }
+      },
     );
     return res;
   } catch (error) {
@@ -106,7 +106,7 @@ export const ORDERS = async (data: {
             console.log(JSON.stringify(data));
           }
         },
-      }
+      },
     );
     return res;
   } catch (error) {
@@ -114,7 +114,7 @@ export const ORDERS = async (data: {
   }
 };
 export const ORDER_DETAILS = async (
-  id: string
+  id: string,
 ): Promise<{
   success: boolean;
   message: string;
@@ -124,7 +124,7 @@ export const ORDER_DETAILS = async (
     const res = await axiosMasterMain(
       {
         method: "GET",
-        url: `${config.host}/topup/main/v1/order/${id}`,
+        url: `${config.host}/topup/main/v1/order/details/${id}`,
         headers: {
           Authorization: `Bearer ${config.token}`,
           "Content-Type": "application/json",
@@ -142,7 +142,7 @@ export const ORDER_DETAILS = async (
             console.log(JSON.stringify(data));
           }
         },
-      }
+      },
     );
     return res;
   } catch (error) {
@@ -194,7 +194,7 @@ export const CREATE_ORDER = async (data: {
             console.log(JSON.stringify(data));
           }
         },
-      }
+      },
     );
     return res;
   } catch (error) {
