@@ -4,6 +4,7 @@ import item from "./item";
 import order from "./order";
 import group from "./group";
 import region from "./region";
+import merchant from "./merchant";
 // Configuration object for CloudHub with initial default values
 export const config: {
   token: string;
@@ -46,6 +47,7 @@ const CloudHub = {
   order,
   group,
   region,
+  merchant,
 };
 
 export default CloudHub;
